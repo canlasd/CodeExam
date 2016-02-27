@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.canlasd.codeexam.MainActivity"
+    tools:showIn="@layout/activity_main">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#42100f0f"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="20dp"
+            android:text="@string/company"
+            android:textColor="#080808"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/company_input"
+            android:layout_centerHorizontal="true"
+            android:inputType="textEmailAddress"
+            android:text="@string/email"
+            android:textColor="#080808"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/company_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/company"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/email"
+            android:layout_toStartOf="@+id/email"
+            android:background="@drawable/border"
+            android:inputType="text"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/email_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/email"
+            android:layout_alignStart="@+id/email"
+            android:layout_below="@+id/email"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@+id/enter"
+            android:background="@drawable/border"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/company_required"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="42dp"
+            android:layout_marginStart="42dp"
+            android:layout_toEndOf="@+id/company"
+            android:layout_toRightOf="@+id/company" />
+
+        <TextView
+            android:id="@+id/email_required"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="42dp"
+            android:layout_marginStart="42dp"
+            android:layout_toEndOf="@+id/email"
+            android:layout_toRightOf="@+id/email" />
+
+        <Button
+            android:id="@+id/enter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/email_input"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:background="#eb0808ea"
+            android:text="@string/enter"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:layout_alignTop="@+id/email_input" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/second_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:background="#42100f0f">
+
+        <TextView
+            android:id="@+id/good_luck_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="#4f0c0c0c"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/good_luck"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#ba140cf5"
+            android:textStyle="bold"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/contest"
+        android:layout_below="@+id/relativeLayout" />
+
+</RelativeLayout>
