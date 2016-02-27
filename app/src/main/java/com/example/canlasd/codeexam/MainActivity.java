@@ -18,14 +18,18 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-    final static String LOG = "log_check";
-    private String PREFS_COUNT = "Contest";
-    String company_input, email_input;
-    int count = 1;
-    final static String email = "contest.ideaone@gmail.com";
-    EditText text_company, text_email;
-    TextView com_req, email_req;
-    RelativeLayout rel, sec_layout;
+    private final static String LOG = "log_check";
+    private final String PREFS_COUNT = "Contest";
+    private String company_input;
+    private String email_input;
+    private int count = 1;
+    private final static String email = "contest.ideaone@gmail.com";
+    private EditText text_company;
+    private EditText text_email;
+    private TextView com_req;
+    private TextView email_req;
+    private RelativeLayout rel;
+    private RelativeLayout sec_layout;
 
 
     @Override
@@ -138,7 +142,7 @@ public class MainActivity extends Activity {
     }
 
 
-    protected void sendNewEmail() {
+    private void sendNewEmail() {
 
 
         String message = "Company name: " + company_input + "\n" + "Email: " + email_input;
@@ -153,7 +157,7 @@ public class MainActivity extends Activity {
 
     }
 
-    public static void hideKeyboard(Activity activity) {
+    private static void hideKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager)
                 activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         //Find the currently focused view, so we can grab the correct window token from it.

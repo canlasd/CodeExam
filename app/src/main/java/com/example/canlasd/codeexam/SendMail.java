@@ -16,32 +16,21 @@ import javax.mail.internet.MimeMessage;
 
 
 //Class is extending AsyncTask because this class is going to perform a networking operation
-public class SendMail extends AsyncTask<Void, Void, Void> {
-
-    //Declaring Variables
-    private Context context;
-    private Session session;
+class SendMail extends AsyncTask<Void, Void, Void> {
 
     //Information to send email
-    private String email;
-    private String subject;
-    private String message;
+    private final String email;
+    private final String subject;
+    private final String message;
 
 
     //Class Constructor
     public SendMail(Context context, String email, String subject, String message) {
         //Initializing variables
-        this.context = context;
+        Context context1 = context;
         this.email = email;
         this.subject = subject;
         this.message = message;
-    }
-
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-        //Showing progress dialog while sending email
-
     }
 
     @Override
@@ -64,7 +53,7 @@ public class SendMail extends AsyncTask<Void, Void, Void> {
         props.put("mail.smtp.port", "465");
 
         //Creating a new session
-        session = Session.getDefaultInstance(props,
+        Session session = Session.getDefaultInstance(props,
                 new javax.mail.Authenticator() {
                     //Authenticating the password
                     protected PasswordAuthentication getPasswordAuthentication() {

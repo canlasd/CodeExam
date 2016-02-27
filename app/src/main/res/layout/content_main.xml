@@ -25,7 +25,7 @@
             android:layout_marginLeft="20dp"
             android:text="@string/company"
             android:textColor="#080808"
-            android:textSize="25dp"
+            android:textSize="25sp"
             android:textStyle="bold" />
 
         <TextView
@@ -54,7 +54,7 @@
             android:layout_toStartOf="@+id/email"
             android:background="@drawable/border"
             android:inputType="text"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/email_input"
