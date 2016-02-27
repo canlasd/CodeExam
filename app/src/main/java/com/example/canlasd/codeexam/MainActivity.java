@@ -22,7 +22,7 @@ public class MainActivity extends Activity {
     private String PREFS_COUNT = "Contest";
     String company_input, email_input;
     int count = 1;
-    final static String email = "canlasd.dc@gmail.com";
+    final static String email = "contest.ideaone@gmail.com";
     EditText text_company, text_email;
     TextView com_req, email_req;
     RelativeLayout rel, sec_layout;
