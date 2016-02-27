@@ -1,9 +1,9 @@
 package com.example.canlasd.codeexam;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
@@ -15,14 +15,20 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class MainActivity extends Activity {
 
     private final static String LOG = "log_check";
-    private final String PREFS_COUNT = "Contest";
     private String company_input;
     private String email_input;
-    private int count = 1;
+
     private final static String email = "contest.ideaone@gmail.com";
     private EditText text_company;
     private EditText text_email;
@@ -30,6 +36,8 @@ public class MainActivity extends Activity {
     private TextView email_req;
     private RelativeLayout rel;
     private RelativeLayout sec_layout;
+    private File dir;
+    private File file;
 
 
     @Override
@@ -41,16 +49,17 @@ public class MainActivity extends Activity {
 
         setContentView(R.layout.activity_main);
 
+        // setting variable to current filepath - to be used later
+        String img_path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Entries/";
+
+        dir = new File(img_path);
+        dir.mkdir();
+
+        file = new File(dir, "data.txt");
+
         // lock keyboard when app opens
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
-        // save initial value of counter
-
-        SharedPreferences settings = getSharedPreferences(PREFS_COUNT, MODE_PRIVATE);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putInt("counter", count);
-        editor.commit();
 
         // initial UI elements
 
@@ -99,14 +108,16 @@ public class MainActivity extends Activity {
 
                 }
 
-                // save data in using shared preferences
-                SharedPreferences settings = getSharedPreferences(PREFS_COUNT, MODE_PRIVATE);
-                int counter = settings.getInt("counter", 0);
-                SharedPreferences.Editor editor = settings.edit();
-                editor.putString("email " + counter, email_input);
-                editor.putString("company " + counter, company_input);
-                editor.putInt("counter", ++count);
-                editor.commit();
+                // get current date and time
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String date_time = sdf.format(new Date());
+
+                String result = "time of entry: " + date_time + "\n" + "email: "
+                        + email_input + "\n" + "company: " + company_input;
+
+                // store result to data.txt file
+                writeToFile(result);
 
                 text_company.setText("");
                 text_email.setText("");
@@ -168,6 +179,24 @@ public class MainActivity extends Activity {
             view = new View(activity);
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    private void writeToFile(String data) {
+        try {
+
+            String separator = System.getProperty("line.separator");
+            FileOutputStream fos = new FileOutputStream(file, true);
+            OutputStreamWriter osw = new OutputStreamWriter(fos);
+            osw.append(separator);
+            osw.append(data);
+            osw.append(separator);
+            osw.append(separator);
+            osw.flush();
+            osw.close();
+            fos.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
     }
 
 
