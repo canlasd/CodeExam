@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -21,6 +22,8 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class MainActivity extends Activity {
@@ -36,8 +39,10 @@ public class MainActivity extends Activity {
     private TextView email_req;
     private RelativeLayout rel;
     private RelativeLayout sec_layout;
-    private File dir;
     private File file;
+    private final static String regex = "^[\\w!#$%&'*+/=?`{|}~^-]" +
+            "+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)" +
+            "+[a-zA-Z]{2,6}$";
 
 
     @Override
@@ -50,12 +55,13 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         // setting variable to current filepath - to be used later
-        String img_path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Entries/";
+        String img_path = Environment.getExternalStorageDirectory().getAbsolutePath()
+                + getString(R.string.entries_directory);
 
-        dir = new File(img_path);
+        File dir = new File(img_path);
         dir.mkdir();
 
-        file = new File(dir, "data.txt");
+        file = new File(dir, getString(R.string.file_name));
 
         // lock keyboard when app opens
         getWindow().setSoftInputMode(
@@ -90,39 +96,46 @@ public class MainActivity extends Activity {
 
                 // get user data
 
-                company_input = text_company.getText().toString();
-                email_input = text_email.getText().toString();
+                company_input = text_company.getText().toString().trim();
+                email_input = text_email.getText().toString().trim();
 
-                if (company_input.matches("")) {
+                if (company_input.matches(getString(R.string.blank))) {
 
-                    com_req.setText("Required");
+                    com_req.setText(R.string.required);
                     com_req.setTextColor(Color.RED);
 
                     return;
-                } else if (email_input.matches("")) {
+                } else if (email_input.matches(getString(R.string.blank))) {
 
-                    email_req.setText("Required");
+                    email_req.setText(R.string.required);
                     email_req.setTextColor(Color.RED);
 
                     return;
 
+                } else if (!validateEmail(email_input)) {
+                    Toast.makeText(MainActivity.this, R.string.enter_email, Toast.LENGTH_LONG)
+                            .show();
+
+                    return;
                 }
 
                 // get current date and time
 
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                SimpleDateFormat sdf = new SimpleDateFormat(getString(R.string.date_format));
                 String date_time = sdf.format(new Date());
 
-                String result = "time of entry: " + date_time + "\n" + "email: "
-                        + email_input + "\n" + "company: " + company_input;
+                String result = getString(R.string.time_entry) + date_time + "\n"
+                        + getString(R.string.email_entry)
+                        + email_input + "\n" + getString(R.string.company_entry)
+                        + company_input;
 
                 // store result to data.txt file
                 writeToFile(result);
 
-                text_company.setText("");
-                text_email.setText("");
-                email_req.setText("");
-                com_req.setText("");
+                text_company.setText(getString(R.string.blank));
+                text_email.setText(getString(R.string.blank));
+                email_req.setText(getString(R.string.blank));
+                com_req.setText(getString(R.string.blank));
 
                 // send email
                 sendNewEmail();
@@ -150,17 +163,19 @@ public class MainActivity extends Activity {
             }
 
         });
+
     }
 
 
     private void sendNewEmail() {
 
 
-        String message = "Company name: " + company_input + "\n" + "Email: " + email_input;
+        String message = getString(R.string.company_name) + company_input +
+                "\n" + getString(R.string.email_string) + email_input;
         Log.i(LOG, message);
 
         //Creating SendMail object
-        SendMail sm = new SendMail(this, email, "Contest Entry", message);
+        SendMail sm = new SendMail(this, email, getString(R.string.contest_entry), message);
 
         //Executing sendmail to send email
         sm.execute();
@@ -168,7 +183,7 @@ public class MainActivity extends Activity {
 
     }
 
-    private static void hideKeyboard(Activity activity) {
+    private void hideKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager)
                 activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         //Find the currently focused view, so we can grab the correct window token from it.
@@ -184,7 +199,7 @@ public class MainActivity extends Activity {
     private void writeToFile(String data) {
         try {
 
-            String separator = System.getProperty("line.separator");
+            String separator = System.getProperty(getString(R.string.line_separator));
             FileOutputStream fos = new FileOutputStream(file, true);
             OutputStreamWriter osw = new OutputStreamWriter(fos);
             osw.append(separator);
@@ -197,6 +212,12 @@ public class MainActivity extends Activity {
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
+    }
+
+    private boolean validateEmail(String email_data) {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(email_data);
+        return matcher.matches();
     }
 
 

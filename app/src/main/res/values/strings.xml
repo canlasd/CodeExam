@@ -5,4 +5,17 @@
     <string name="email">Email</string>
     <string name="enter">Enter</string>
     <string name="good_luck">GOOD LUCK!</string>
+    <string name="required">Required</string>
+    <string name="enter_email">Please Enter a Valid Email Address</string>
+    <string name="contest_entry">Contest Entry</string>
+    <string name="company_name">"Company name: "</string>
+    <string name="email_string">"Email: "</string>
+    <string name="time_entry">"time of entry: "</string>
+    <string name="email_entry">"email: "</string>
+    <string name="company_entry">"company: "</string>
+    <string name="date_format">yyyy-MM-dd HH:mm:ss</string>
+    <string name="line_separator">line.separator</string>
+    <string name="entries_directory">/Entries/</string>
+    <string name="file_name">data.txt</string>
+    <string name="blank" />
 </resources>
