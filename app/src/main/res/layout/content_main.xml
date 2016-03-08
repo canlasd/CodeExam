@@ -73,19 +73,22 @@
             android:id="@+id/company_required"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="42dp"
-            android:layout_marginStart="42dp"
-            android:layout_toEndOf="@+id/company"
-            android:layout_toRightOf="@+id/company" />
+            android:layout_toRightOf="@+id/company"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="60dp"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentStart="false"
+            android:layout_alignStart="@+id/company" />
 
         <TextView
             android:id="@+id/email_required"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="42dp"
-            android:layout_marginStart="42dp"
-            android:layout_toEndOf="@+id/email"
-            android:layout_toRightOf="@+id/email" />
+            android:layout_marginLeft="0dp"
+            android:layout_toRightOf="@+id/email"
+            android:layout_marginTop="60dp"
+            android:layout_alignStart="@+id/email"
+            android:layout_alignParentStart="false" />
 
         <Button
             android:id="@+id/enter"
